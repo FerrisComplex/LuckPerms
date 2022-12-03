@@ -25,6 +25,7 @@
 
 package me.lucko.luckperms.sponge.service.reference;
 
+import me.lucko.luckperms.common.util.LPAsyncUtils;
 import me.lucko.luckperms.sponge.service.model.LPPermissionService;
 import me.lucko.luckperms.sponge.service.model.LPSubject;
 import me.lucko.luckperms.sponge.service.model.LPSubjectReference;
@@ -138,7 +139,7 @@ final class CachedSubjectReference implements LPSubjectReference {
         }
 
         // load the subject
-        return CompletableFuture.supplyAsync(this::resolveDirectly);
+        return CompletableFuture.supplyAsync(this::resolveDirectly, LPAsyncUtils.AsyncExecutorFutures);
     }
 
     @Override
@@ -150,7 +151,7 @@ final class CachedSubjectReference implements LPSubjectReference {
         }
 
         // load the subject
-        return CompletableFuture.supplyAsync(() -> resolveDirectly().sponge());
+        return CompletableFuture.supplyAsync(() -> resolveDirectly().sponge(), LPAsyncUtils.AsyncExecutorFutures);
     }
 
     @Override

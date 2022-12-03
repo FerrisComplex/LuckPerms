@@ -40,6 +40,7 @@ import me.lucko.luckperms.common.node.utils.NodeJsonSerializer;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
 import me.lucko.luckperms.common.sender.Sender;
 import me.lucko.luckperms.common.util.CompletableFutures;
+import me.lucko.luckperms.common.util.LPAsyncUtils;
 import me.lucko.luckperms.common.util.Uuids;
 
 import net.luckperms.api.event.cause.CreationCause;
@@ -207,7 +208,7 @@ public class Importer implements Runnable {
         this.notify.forEach(Message.IMPORT_START::send);
 
         // start an update task in the background - we'll #join this later
-        CompletableFuture<Void> updateTask = CompletableFuture.runAsync(() -> this.plugin.getSyncTaskBuffer().requestDirectly());
+        CompletableFuture<Void> updateTask = CompletableFuture.runAsync(() -> this.plugin.getSyncTaskBuffer().requestDirectly(), LPAsyncUtils.AsyncExecutorFutures);
 
         this.notify.forEach(s -> Message.IMPORT_INFO.send(s, "Reading data..."));
 

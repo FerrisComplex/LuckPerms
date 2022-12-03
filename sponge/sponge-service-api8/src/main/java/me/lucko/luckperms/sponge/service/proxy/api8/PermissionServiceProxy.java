@@ -27,7 +27,9 @@ package me.lucko.luckperms.sponge.service.proxy.api8;
 
 import com.google.common.collect.ImmutableSet;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import me.lucko.luckperms.common.util.ImmutableCollectors;
+import me.lucko.luckperms.common.util.LPAsyncUtils;
 import me.lucko.luckperms.sponge.service.CompatibilityUtil;
 import me.lucko.luckperms.sponge.service.PermissionAndContextService;
 import me.lucko.luckperms.sponge.service.model.LPPermissionDescription;
@@ -53,9 +55,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Predicate;
 
 public final class PermissionServiceProxy implements PermissionAndContextService, LPProxiedServiceObject {
+
+
     private final LPPermissionService handle;
 
     public PermissionServiceProxy(LPPermissionService handle) {

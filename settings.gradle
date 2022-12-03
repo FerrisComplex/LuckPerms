@@ -20,7 +20,6 @@ include (
         'bukkit-legacy:loader',
         'bungee',
         'bungee:loader',
-        'fabric',
         'forge',
         'forge:loader',
         'forge:forge-api',
